@@ -53,21 +53,45 @@ Header:
  delay.h, gpio.h, pwm.h, stdulils.h
 
 # PIN DIAGRAM :
+<img width="365" height="285" alt="image" src="https://github.com/user-attachments/assets/7d140aac-f12d-480b-a49e-75c3a103eca9" />
 
 
 # CIRCUIT DIAGRAM:
- 
+ <img width="1071" height="542" alt="image" src="https://github.com/user-attachments/assets/32385c04-83b8-4e60-aeb2-fb72ed01a05a" />
+
  
 # PROGRAM:
-
-
- 
+```
+#include <lpc17xx.h>
+#include "pwm.h"
+#include "delay.h"
+#define CYCLE_TIME 100
+/* start the main program */
+int main()
+{
+int dutyCycle;
+SystemInit(); /* Clock and PLL configuration */
+PWM_Init(CYCLE_TIME); /* Initialize the PWM module and the Cycle time(Ton+Toff) is
+set to 255(similar to arduino)*/
+PWM_Start(PWM_3); /* Enable PWM output on PWM_1-PWM_4 (P2_0 - P2_3) */
+while(1)
+{
+for(dutyCycle=0;dutyCycle<CYCLE_TIME;dutyCycle++) /* Increase the Brightness of the
+Leds */
+{
+PWM_SetDutyCycle(PWM_3,dutyCycle); //P2_2
+DELAY_ms(10);
+}
+for(dutyCycle=CYCLE_TIME;dutyCycle>0;dutyCycle--) /* Decrease the Brightness of the
+Leds */
+{
+PWM_SetDutyCycle(PWM_3,dutyCycle); //P2_2
+DELAY_ms(10);
+}
+}
+}
+```
 # Output:
 
-
-
-
-
-
-
+![IMG-20251105-WA0002_edited](https://github.com/user-attachments/assets/f49ef4e1-5907-4d44-884e-4e8d8fdc8bf4)
 
